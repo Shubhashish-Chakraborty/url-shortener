@@ -2,7 +2,7 @@ const { nanoid } = require('nanoid');
 
 const { UrlModel } = require("../models/urlModel"); // Importing the URL Model!
 
-const baseUrl = `http://localhost:${process.env.PORT}`;
+const baseUrl = `https://theshortlink.vercel.app`;
 
 const shortenUrl = async (req, res) => {
     const { longUrl } = req.body; // Retriving the actual(long) URL from the body
