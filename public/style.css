@@ -92,6 +92,15 @@ body {
     color: var(--dark-color);
 }
 
+.signup-prompt {
+    color: red;
+    text-align: center;
+    font-weight: bolder;
+    font-size: larger;
+    cursor: pointer;
+    margin-top: 1.5rem;
+}
+
 .sidebar-nav {
     flex: 1;
     overflow-y: auto;

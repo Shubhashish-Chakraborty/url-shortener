@@ -7,6 +7,8 @@ const closeSidebar = document.querySelector('.close-sidebar');
 const pages = document.querySelectorAll('.page');
 const navLinks = document.querySelectorAll('.nav-link');
 const historyLink = document.getElementById('historyLink');
+const signupPrompt = document.getElementById('signupPrompt');
+
 
 // Auth Elements
 const userInfo = document.querySelector('.user-info');
@@ -111,6 +113,38 @@ function showPage(pageName) {
 }
 
 // Check authentication status
+// function checkAuth() {
+//     if (token) {
+//         try {
+//             const payload = JSON.parse(atob(token.split('.')[1]));
+//             currentUser = {
+//                 id: payload.userId,
+//                 username: payload.username
+//             };
+
+//             // Update UI for logged in user
+//             document.querySelector('.auth-forms').classList.add('hidden');
+//             userInfo.classList.remove('hidden');
+//             usernameDisplay.textContent = currentUser.username;
+//             historyLink.classList.remove('hidden');
+
+//             // Immediately fetch user's URLs if on history page
+//             if (historyPage.classList.contains('active')) {
+//                 fetchUserUrls();
+//             }
+//         } catch (e) {
+//             console.error('Invalid token', e);
+//             logout();
+//         }
+//     } else {
+//         // Update UI for logged out user
+//         document.querySelector('.auth-forms').classList.remove('hidden');
+//         userInfo.classList.add('hidden');
+//         historyLink.classList.add('hidden');
+//         currentUser = null;
+//     }
+// }
+
 function checkAuth() {
     if (token) {
         try {
@@ -120,11 +154,14 @@ function checkAuth() {
                 username: payload.username
             };
 
-            // Update UI for logged in user
+            // 👇 FIX: Update UI for logged-in user
             document.querySelector('.auth-forms').classList.add('hidden');
             userInfo.classList.remove('hidden');
-            usernameDisplay.textContent = currentUser.username;
+            usernameDisplay.textContent = currentUser.username || 'User'; // Fix display
             historyLink.classList.remove('hidden');
+
+            // 👇 Hide the signup prompt
+            signupPrompt?.classList.add('hidden');
 
             // Immediately fetch user's URLs if on history page
             if (historyPage.classList.contains('active')) {
@@ -135,13 +172,17 @@ function checkAuth() {
             logout();
         }
     } else {
-        // Update UI for logged out user
+        // 👇 Update UI for logged-out user
         document.querySelector('.auth-forms').classList.remove('hidden');
         userInfo.classList.add('hidden');
         historyLink.classList.add('hidden');
         currentUser = null;
+
+        // 👇 Show the signup prompt
+        signupPrompt?.classList.remove('hidden');
     }
 }
+
 
 // Show toast notification
 function showToast(message, type = 'default', duration = 3000) {
