@@ -11,7 +11,15 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+    origin: [
+        'https://tsltest.vercel.app',
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 app.use("" , urlRouter);
 
